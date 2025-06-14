@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // 3 запроса ограницение в минуту по доке и дип сик
+        // 3 запроса ограницение в минуту по доке
         RateLimiter::for('web', function (Request $request) {
             return Limit::perMinute(50)
                 ->by($request->user()?->id ?: $request->ip())

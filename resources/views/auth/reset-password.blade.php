@@ -1,15 +1,17 @@
 @extends('layouts.auth')
-@section('title', 'Забыли пароль')
+@section('title', 'Сброс пароля')
 @section('content')
-    <x-forms.auth-forms title="Забыли пароль" action="">
+    <x-forms.auth-forms title="Сброс пароля" action="{{ route('password.update') }}" method="post">
         @csrf
+        "@dump($errors)
+        <input type="hidden" name="token" value="{{ $token }}">
         {{--email--}}
             <x-forms.text-input
                 name="email"
                 type="email"
                 placeholder="Email"
+                value="{{ request('email') }}"
                 :isError="$errors->has('email')"
-                required
             />
             @error('email')
             <x-forms.error>
@@ -17,15 +19,37 @@
             </x-forms.error>
             @enderror
         {{--end email--}}
+        {{--password--}}
+            <x-forms.text-input
+                name="password"
+                type="password"
+                placeholder="Password"
+                :isError="$errors->has('password')"
+            />
+            @error('password')
+            <x-forms.error>
+                {{ $message }}
+            </x-forms.error>
+            @enderror
+        {{--end password--}}
+
+        {{--confirm password--}}
+            <x-forms.text-input
+                name="password_confirmation"
+                type="password"
+                placeholder="password_confirmation"
+                :isError="$errors->has('password_confirmation')"
+            />
+            @error('password_confirmation')
+            <x-forms.error>
+                {{ $message }}
+            </x-forms.error>
+            @enderror
+        {{--end confirm password--}}
 
         {{--forms.primary-button--}}
-        <x-forms.primary-button>Отправить</x-forms.primary-button>
+        <x-forms.primary-button>Обновить</x-forms.primary-button>
         {{--end forms.primary-button--}}
-
-        {{-- {{ $socialAuth }} auth-forms.blade.php  --}}
-        {{--<x-slot:socialAuth></x-slot:socialAuth>--}}
-        {{-- end {{ $socialAuth }} auth-forms.blade.php  --}}
-
 
         {{-- end {{ $buttons }} auth-forms.blade.php  --}}
         <x-slot:buttons>

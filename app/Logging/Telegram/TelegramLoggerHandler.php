@@ -43,7 +43,6 @@ class TelegramLoggerHandler extends AbstractProcessingHandler
         $icon = $this->getLevelIcon($data['level_name']);
 
         $message = "{$icon} {$data['level_name']}: {$data['message']}\n";
-        $message .= "⏰ " . $data['datetime']->format('Y-m-d H:i:s') . "\n";
 
         if (!empty($data['context'])) {
             $message .= "📌 Контекст:\n" . json_encode($data['context'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
